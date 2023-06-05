@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,14 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, "logout"]);
+        Route::get('profile', [AuthController::class, "profile"]);
+
+        Route::controller(ProjectController::class)->group(function () {
+            Route::get('projects', 'index');
+            Route::get('projects/{id}', 'show');
+            Route::post('projects', 'store');
+            Route::patch('projects/{project}', 'update');
+            Route::delete('projects/{id}', 'destroy');
+        });
     });
 });

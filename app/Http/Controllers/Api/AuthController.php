@@ -59,4 +59,13 @@ class AuthController extends Controller
             "status" => 200
         ]);
     }
+
+    public function profile()
+    {
+        return response()->json([
+            "message" => "User profile",
+            "status" => 200,
+            "user" => auth()->user()
+        ], 200);
+    }
 }
